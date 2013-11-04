@@ -31,5 +31,5 @@ var loadPage = function() {
 }
 
 $(document).ready(function(){
-	loadPage();
+	$('#body').css('min-height',$('.container').height() - $('header').height() - $('footer').height());
 });
