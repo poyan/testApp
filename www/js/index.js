@@ -30,10 +30,30 @@ var loadPage = function() {
 	$('.container').append('<div class="button yellow" onclick="alert(this.innerHTML)">yellow</div>');
 }
 
+var resizeWindow = function() {
+	head = {
+		h: $('header').height() ,
+		pt: $('header').css('padding-top').split('px')[0] ,
+		pb: $('header').css('padding-bottom').split('px')[0] ,
+	};
+	
+	foot = {
+		h: $('footer').height() ,
+		pt: $('footer').css('padding-top').split('px')[0] ,
+		pb: $('footer').css('padding-bottom').split('px')[0] ,
+	};
+	
+	cont = {
+		h: $('.container').height() ,
+	};
+	
+	$('#body').css('min-height',cont.h - head.h - head.pt - head.pb - foot.h - foot.pt - foot.pb);
+}
+
 $(document).ready(function(){
-	$('#body').css('min-height',$('.container').height() - $('header').height() - $('footer').height());
+	resizeWindow();
 });
 
 $(window).resize(function() {
-	$('#body').css('min-height',$('.container').height() - $('header').height() - $('footer').height());
+	resizeWindow();
 });
