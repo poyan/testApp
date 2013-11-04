@@ -1,6 +1,6 @@
 @font-face{
 	font-family:ubuntu;
-	src: url('Ubuntu-M.ttf');
+	src: url('Ubuntu-L.ttf');
 }
 
 .test {
@@ -19,7 +19,7 @@ html , body {
 }
 
 body {
-    background-color:#282828;
+    background-color:#fff;
     font-family:ubuntu,sans-serif;
     font-size:medium;
 }
@@ -43,44 +43,45 @@ div {
     font-family:ubuntu,sans-serif;
 }
 
-.button.red{
-	background-color:#ed1c24;
-}
-.button.blue{
-	background-color:#00aeef;
-}
-.button.green{
-	background-color:#39b54a;
-}
-.button.yellow{
-	background-color:#fff568;
-}
-
 .container {
 	width:100%;
 	height:100%;
 	border:solid 1px;
+	overflow:auto;
+	background-color:#e0e2e1;
 }
 
-header {
-	position:relative;
-	background-color:#ed1c24;
-	padding:5px;
-	box-sizing:border-box !important;
-	-moz-box-sizing:border-box !important;
-	-webkit-box-sizing:border-box !important;
+.gradient {
+    background-color:#e0e2e1;
+    background-image:linear-gradient(top, #e0e2e1 0%, #e2e1df 100%);
+    background-image:-webkit-linear-gradient(top, #e0e2e1 0%, #e2e1df 100%);
+    background-image:-ms-linear-gradient(top, #e0e2e1 0%, #e2e1df 100%);
+    background-image:-webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #e0e2e1),
+        color-stop(1, #e2e1df)
+    );
+
 }
 
-footer {
+header,footer {
+	background-color:#333;
 	position:relative;
-	background-color:#00aeef;
 	padding:5px;
+	min-height:50px;
+	height:auto;
+	color:#eee;
 	box-sizing:border-box !important;
 	-moz-box-sizing:border-box !important;
 	-webkit-box-sizing:border-box !important;
 }
 
 #body {
-	background-color:#39b54a;
 	padding:5px;
+}
+
+.content-data {
+	
 }

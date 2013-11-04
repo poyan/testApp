@@ -33,3 +33,7 @@ var loadPage = function() {
 $(document).ready(function(){
 	$('#body').css('min-height',$('.container').height() - $('header').height() - $('footer').height());
 });
+
+$(window).resize(function() {
+	$('#body').css('min-height',$('.container').height() - $('header').height() - $('footer').height());
+});
