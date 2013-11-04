@@ -24,8 +24,12 @@ var test = {
 }
 
 var loadPage = function() {
-	$('.container').append('<div class="button red">red</div>');
-	$('.container').append('<div class="button blue">blue</div>');
-	$('.container').append('<div class="button green">green</div>');
-	$('.container').append('<div class="button yellow">yellow</div>');
+	$('.container').append('<div class="button red" onclick="alert(this.innerHTML)">red</div>');
+	$('.container').append('<div class="button blue" onclick="alert(this.innerHTML)">blue</div>');
+	$('.container').append('<div class="button green" onclick="alert(this.innerHTML)">green</div>');
+	$('.container').append('<div class="button yellow" onclick="alert(this.innerHTML)">yellow</div>');
 }
+
+$(document).ready(function(){
+	loadPage();
+});
