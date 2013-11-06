@@ -17,11 +17,29 @@
  * under the License.
  */
  
+window.requestAnimFrame = (function(){
+	return  window.requestAnimationFrame || 
+			window.webkitRequestAnimationFrame || 
+			window.mozRequestAnimationFrame ||
+			function( callback ){
+				window.setTimeout(callback, 1000/60 );
+			};
+})();
+
 var test = {
 	run: function() {
 		alert('Hello Arbe');
 	}
 }
+
+var pub = {
+	x:0,
+	swipe: {
+		pos:0,
+		dest:0,
+	},
+	mov:0
+};
 
 var loadPage = function() {
 	$('.container').append('<div class="button red" onclick="alert(this.innerHTML)">red</div>');
@@ -50,8 +68,80 @@ var resizeWindow = function() {
 	$('#body').css('min-height',cont.h - head.h - head.pt - head.pb - foot.h - foot.pt - foot.pb);
 }
 
+
+var swipe = {
+	left : function() {
+		var obj = document.getElementById('carousel');
+		var left = $(obj).css('left').split('px')[0];
+		var comp = -0.75 * $(obj).width();
+		
+		if ( pub.swipe.dest > 0 ) {
+			pub.swipe.dest = 0;
+		}
+		if ( pub.swipe.dest < comp ) {
+			pub.swipe.dest = comp;
+		}
+		
+		if( left > pub.swipe.dest ) {
+			$(obj).css('left','-='+pub.mov);
+			window.requestAnimFrame( swipe.left );
+		}
+	} ,
+	
+	right : function() {
+		var obj = document.getElementById('carousel');
+		var left = $(obj).css('left').split('px')[0];
+		var comp = -0.75 * $(obj).width();
+		
+		if ( pub.swipe.dest > 0 ) {
+			pub.swipe.dest = 0;
+		}
+		if ( pub.swipe.dest < comp ) {
+			pub.swipe.dest = comp;
+		}
+		
+		if( left < pub.swipe.dest ) {
+			$(obj).css('left','+='+pub.mov);
+			window.requestAnimFrame(  swipe.right );
+		}
+	} ,
+}
+
 $(document).ready(function(){
 	resizeWindow();
+	var el = document.getElementById('carousel');
+	
+	var i = 100;
+	pub.mov = $('#carousel').width() / i ;
+	
+	while ( pub.mov % 1 > 0 ) {
+		i++;
+		pub.mov = $('#carousel').width() / i ;
+	}
+	
+	console.log(pub.mov);
+	
+	var hammertime = Hammer(el).on("swipeleft", function(event) {
+		var obj = document.getElementById('carousel');
+		var left = $(obj).css('left').split('px')[0];
+		
+		
+		pub.swipe.dest = pub.swipe.dest - 0.25 * $(obj).width();
+		
+		
+		window.requestAnimFrame(  swipe.left );
+	});
+	
+	var hammertime = Hammer(el).on("swiperight", function(event) {	
+		var obj = document.getElementById('carousel');
+		var left = $(obj).css('left').split('px')[0];
+		
+		pub.swipe.dest = pub.swipe.dest + 0.25 * $(obj).width();
+		
+		
+		window.requestAnimFrame(  swipe.right );
+	});
+	
 });
 
 $(window).resize(function() {
